@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:02:11 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/16 00:16:23 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/19 23:17:06 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,6 @@ void	free_philo(t_philo *philo)
 	{
 		pthread_mutex_destroy(philo->l_fork);
 		free(philo->l_fork);
-		philo->l_fork = NULL;
-	}
-	if (philo->r_fork != NULL)
-	{
-		pthread_mutex_destroy(philo->r_fork);
-		free(philo->r_fork);
-		philo->r_fork = NULL;
 	}
 	free (philo);
 }
@@ -51,5 +44,22 @@ void	free_philos(t_philos *philos)
 	if (philos == NULL)
 		return ;
 	free_philo_arr(philos->philo_arr);
+	pthread_mutex_destroy(&(philos->death_lock));
+	free(philos->p_ids);
 	free(philos);
+}
+
+void	free_thread_datas(t_thread_data **thread_datas)
+{
+	int	i;
+
+	if (thread_datas == NULL)
+		return ;
+	i = 0;
+	while (thread_datas[i] != NULL)
+	{
+		free(thread_datas[i]);
+		i++;
+	}
+	free (thread_datas);
 }

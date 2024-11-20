@@ -6,13 +6,13 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:58:38 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/16 23:48:02 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/19 22:41:54 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	init_philo_arr_empty(t_philos *philos)
+int	init_philo_arr(t_philos *philos)
 {
 	t_philo	**philo_arr;
 	int		i;
@@ -33,14 +33,18 @@ int	init_philo_arr_empty(t_philos *philos)
 		i++;
 	}
 	philos->philo_arr = philo_arr;
+	i = -1;
+	while (((++i) * 2) < philos->num_of_philo - 1)
+		philo_arr[i * 2]->has_token = 1;
 	return (1);
 }
 
-int	wrap(int num, int num_of_philo)
+int	wrap(int i, int num_of_philo)
 {
-	if (num == -1)
-		return (num + num_of_philo);
-	return (num);
+	if (i > 0)
+		return (i - 1);
+	else
+		return (i - 1 + num_of_philo);
 }
 
 int	init_assign_forks(t_philos *philos)
@@ -58,10 +62,21 @@ int	init_assign_forks(t_philos *philos)
 			return (free(fork), -1);
 		philos->philo_arr[i]->l_fork = fork;
 		if (philos->num_of_philo > 1)
-			philos->philo_arr[wrap(i - 1, philos->num_of_philo)]->r_fork = fork;
+			philos->philo_arr[wrap(i, philos->num_of_philo)]->r_fork = fork;
 		fork = NULL;
 		i++;
 	}
+	return (1);
+}
+
+int	init_pthread_ids(t_philos *philos)
+{
+	pthread_t	*pthread_ids;
+
+	pthread_ids = (pthread_t *)malloc(philos->num_of_philo * sizeof(pthread_t));
+	if (pthread_ids == NULL)
+		return (-1);
+	philos->p_ids = pthread_ids;
 	return (1);
 }
 
@@ -72,16 +87,21 @@ t_philos	*init_philos(int argc, char *argv[])
 	philos = (t_philos *)malloc(sizeof(t_philos));
 	if (philos == NULL)
 		return (NULL);
+	memset(philos, 0, sizeof(t_philos));
 	philos->num_of_philo = ft_get_int(argv[1]);
 	philos->time_to_die = ft_get_int(argv[2]);
 	philos->time_to_eat = ft_get_int(argv[3]);
 	philos->time_to_sleep = ft_get_int(argv[4]);
-	philos->num_of_times_must_eat = INT_MAX;
+	philos->num_of_times_must_eat = LONG_MAX;
 	if (argc == 6)
 		philos->num_of_times_must_eat = ft_get_int(argv[5]);
-	if (init_philo_arr_empty(philos) == -1)
+	if (init_philo_arr(philos) == -1)
 		return (free_philos(philos), NULL);
 	if (init_assign_forks(philos) == -1)
+		return (free_philos(philos), NULL);
+	if (init_pthread_ids(philos) == -1)
+		return (free_philos(philos), NULL);
+	if (pthread_mutex_init(&(philos->death_lock), NULL) != 0)
 		return (free_philos(philos), NULL);
 	return (philos);
 }

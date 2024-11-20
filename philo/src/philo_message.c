@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_loop_utils.c                                 :+:      :+:    :+:   */
+/*   philo_message.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/16 14:31:10 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/16 15:16:30 by adrgutie         ###   ########.fr       */
+/*   Created: 2024/11/18 23:11:02 by adrgutie          #+#    #+#             */
+/*   Updated: 2024/11/20 15:41:01 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	put_message(t_philos *philos, t_philo *philo, int action)
+void	put_message(t_philo *philo, t_philos *philos, int action)
 {
-	printf("%ld ", get_time_mili());
+	long	curtime;
+
+	curtime = get_time_mili() - philos->start_time;
 	if (action == DIE)
-		printf("%d died\n", philos->which_died);
+		printf("%ld %d died\n", curtime, philo->name);
 	else if (action == TAKE_FORK)
-		printf("%d has taken a fork\n", philo->name);
+		printf("%ld %d has taken a fork\n", curtime, philo->name);
 	else if (action == EAT)
-		printf("%d is eating\n", philo->name);
+		printf("%ld %d is eating\n", curtime, philo->name);
 	else if (action == SLEEP)
-		printf("%d is sleeping\n", philo->name);
+		printf("%ld %d is sleeping\n", curtime, philo->name);
 	else if (action == THINK)
-		printf("%d is thinking\n", philo->name);
+		printf("%ld %d is thinking\n", curtime, philo->name);
 }

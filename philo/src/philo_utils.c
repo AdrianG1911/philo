@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 16:02:21 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/16 14:08:09 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/19 21:25:33 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_get_int(char *str)
 	num = 0;
 	while (str[i])
 	{
-		if (ft_isdig == 0)
+		if (ft_isdig(str[i]) == 0)
 			return (-1);
 		num *= 10;
 		num += str[i] - '0';
