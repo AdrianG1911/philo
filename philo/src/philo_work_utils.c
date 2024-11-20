@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 23:12:29 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/20 15:45:23 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/20 15:54:20 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	death_update(t_philo *philo, t_philos *philos)
 	pthread_mutex_lock(&(philos->death_lock));
 	if (philos->which_died == 0)
 		philos->which_died = philo->name;
-	//printf("time: %ld someone_died! it was %d\n", get_time_mili() - \
-	philos->start_time, philos->which_died);
 	pthread_mutex_unlock(&(philos->death_lock));
 }
 

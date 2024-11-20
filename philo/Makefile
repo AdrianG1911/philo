@@ -6,12 +6,12 @@
 #    By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/17 01:22:37 by adrgutie          #+#    #+#              #
-#    Updated: 2024/11/19 22:37:43 by adrgutie         ###   ########.fr        #
+#    Updated: 2024/11/20 15:55:59 by adrgutie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= philo
-CC			= gcc
+CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
 LDLIBS		= -lpthread
 RM			= rm -fr
@@ -30,10 +30,10 @@ OBJS		= $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 
 $(OBJ_DIR)/%.o: src/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -g -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 	
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(LDFLAGS) $(LDLIBS) -g -o $(NAME)
+	$(CC) $(OBJS) $(LDFLAGS) $(LDLIBS) -o $(NAME)
 
 all: $(NAME)
 
