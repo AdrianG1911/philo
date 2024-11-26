@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:02:11 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/19 23:17:06 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/26 18:44:08 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	free_philos(t_philos *philos)
 		return ;
 	free_philo_arr(philos->philo_arr);
 	pthread_mutex_destroy(&(philos->death_lock));
+	pthread_mutex_destroy(&(philos->message_lock));
 	free(philos->p_ids);
 	free(philos);
 }

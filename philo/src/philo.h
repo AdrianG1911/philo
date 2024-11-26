@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:46:13 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/19 23:02:48 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/26 18:41:48 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_philos
 	t_philo			**philo_arr;
 	long			start_time;
 	pthread_mutex_t	death_lock;
+	pthread_mutex_t	message_lock;
 	int				which_died;
 	int				done_eating;
 	pthread_t		*p_ids;

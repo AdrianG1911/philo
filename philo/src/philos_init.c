@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:58:38 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/19 22:41:54 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/26 18:43:28 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ t_philos	*init_philos(int argc, char *argv[])
 	if (init_pthread_ids(philos) == -1)
 		return (free_philos(philos), NULL);
 	if (pthread_mutex_init(&(philos->death_lock), NULL) != 0)
+		return (free_philos(philos), NULL);
+	if (pthread_mutex_init(&(philos->message_lock), NULL) != 0)
 		return (free_philos(philos), NULL);
 	return (philos);
 }
