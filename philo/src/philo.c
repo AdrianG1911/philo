@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 21:14:15 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/20 15:33:59 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/27 22:43:06 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	philo_loop(t_philos *philos)
 
 	thread_datas = init_thread_datas(philos);
 	if (thread_datas == NULL)
-		return (free(philos), -1);
+		return (free(philos), EXIT_FAILURE);
 	i = 0;
 	philos->start_time = get_time_mili();
 	while (i < philos->num_of_philo)
@@ -73,8 +73,8 @@ int	philo_loop(t_philos *philos)
 	philo_join(i, philos);
 	free_thread_datas(thread_datas);
 	if (i < philos->num_of_philo)
-		return (free_philos(philos), 1);
-	return (free_philos(philos), 0);
+		return (free_philos(philos), EXIT_FAILURE);
+	return (free_philos(philos), EXIT_SUCCESS);
 }
 
 int	philo(int argc, char *argv[])
@@ -90,7 +90,7 @@ int	philo(int argc, char *argv[])
 		put_message(philos->philo_arr[0], philos, TAKE_FORK);
 		usleep(philos->time_to_die * 1000);
 		put_message(philos->philo_arr[0], philos, DIE);
-		return (0);
+		return (EXIT_SUCCESS);
 	}
 	return (philo_loop(philos));
 }
@@ -98,8 +98,8 @@ int	philo(int argc, char *argv[])
 int	main(int argc, char *argv[])
 {
 	if (argc > 6 || argc < 5)
-		return (1);
+		return (EXIT_FAILURE);
 	if (neg_check(argc, argv) == -1)
-		return (1);
+		return (EXIT_FAILURE);
 	return (philo(argc, argv));
 }
