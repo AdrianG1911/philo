@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:18:05 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/20 00:13:59 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/27 21:08:18 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,12 @@ void	*philo_work(void *arg)
 	philo = philos->philo_arr[thread_data->thread_id];
 	while (1)
 	{
+		put_message(philo, philos, THINK);
 		if (fork_loop(philo, philos) == -1)
 			return ((void *)-1);
 		if (sleep_loop(philo, philos) == -1)
 			return ((void *)-1);
 		if (death_or_done(philos) == -1)
 			return ((void *)-1);
-		put_message(philo, philos, THINK);
 	}
 }
