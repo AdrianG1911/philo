@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 21:14:15 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/27 22:43:06 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/28 16:19:56 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	philo(int argc, char *argv[])
 
 	philos = init_philos(argc, argv);
 	if (philos == NULL)
-		return (-1);
+		return (EXIT_FAILURE);
 	if (philos->num_of_philo == 1)
 	{
 		philos->start_time = get_time_mili();
