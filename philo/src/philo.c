@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 21:14:15 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/28 16:19:56 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/28 18:43:57 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	philo(int argc, char *argv[])
 		put_message(philos->philo_arr[0], philos, TAKE_FORK);
 		usleep(philos->time_to_die * 1000);
 		put_message(philos->philo_arr[0], philos, DIE);
-		return (EXIT_SUCCESS);
+		return (free_philos(philos), EXIT_SUCCESS);
 	}
 	return (philo_loop(philos));
 }

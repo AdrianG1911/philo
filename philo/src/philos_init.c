@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:58:38 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/26 18:43:28 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/28 18:50:25 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,13 @@ t_philos	*init_philos(int argc, char *argv[])
 	if (philos == NULL)
 		return (NULL);
 	memset(philos, 0, sizeof(t_philos));
-	philos->num_of_philo = ft_get_int(argv[1]);
-	philos->time_to_die = ft_get_int(argv[2]);
-	philos->time_to_eat = ft_get_int(argv[3]);
-	philos->time_to_sleep = ft_get_int(argv[4]);
+	philos->num_of_philo = ft_atol_special(argv[1]);
+	philos->time_to_die = ft_atol_special(argv[2]);
+	philos->time_to_eat = ft_atol_special(argv[3]);
+	philos->time_to_sleep = ft_atol_special(argv[4]);
 	philos->num_of_times_must_eat = LONG_MAX;
 	if (argc == 6)
-		philos->num_of_times_must_eat = ft_get_int(argv[5]);
+		philos->num_of_times_must_eat = ft_atol_special(argv[5]);
 	if (init_philo_arr(philos) == -1)
 		return (free_philos(philos), NULL);
 	if (init_assign_forks(philos) == -1)

@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:46:13 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/26 18:41:48 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/28 18:50:25 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_philos		*init_philos(int argc, char *argv[]);
 t_thread_data	**init_thread_datas(t_philos *philos);
 //utils
 long			get_time_mili(void);
-int				ft_get_int(char *str);
+long			ft_atol_special(char *str);
 int				neg_check(int argc, char *argv[]);
 //free
 void			free_philo_arr(t_philo **philo_arr);
