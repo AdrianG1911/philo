@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 21:14:15 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/29 21:42:34 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/29 21:46:09 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	main(int argc, char *argv[])
 {
 	if (argc > 6 || argc < 5)
 		return (EXIT_FAILURE);
-	if (neg_check(argc, argv) < 0)
+	if (neg_check(argc, argv) == -1)
 		return (EXIT_FAILURE);
 	return (philo(argc, argv));
 }

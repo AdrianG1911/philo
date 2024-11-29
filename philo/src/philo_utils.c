@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 16:02:21 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/28 18:51:42 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/29 21:53:07 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	neg_check(int argc, char *argv[])
 {
 	while (--argc >= 1)
 	{
-		if (ft_atol_special(argv[argc]) == -1)
+		if (ft_atol_special(argv[argc]) < 0)
 			return (-1);
 	}
 	return (1);
