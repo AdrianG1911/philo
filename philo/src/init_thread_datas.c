@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:26:49 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/18 16:38:37 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/29 21:37:59 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ t_thread_data	**init_thread_datas(t_philos *philos)
 					sizeof(t_thread_data *));
 	if (thread_datas == NULL)
 		return (NULL);
-	memset(thread_datas, 0, philos->num_of_philo);
+	memset(thread_datas, 0, (philos->num_of_philo + 1) * \
+					sizeof(t_thread_data *));
 	i = 0;
 	while (i < philos->num_of_philo)
 	{
