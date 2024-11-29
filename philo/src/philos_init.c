@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:58:38 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/28 18:50:25 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/29 21:31:41 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ int	init_philo_arr(t_philos *philos)
 	int		i;
 
 	philo_arr = (t_philo **)malloc(\
-	philos->num_of_philo * sizeof(t_philo *) + 1);
+	(philos->num_of_philo + 1) * (sizeof(t_philo *) + 1));
 	if (philo_arr == NULL)
 		return (-1);
-	memset(philo_arr, 0, philos->num_of_philo * sizeof(t_philo *) + 1);
+	memset(philo_arr, 0, (philos->num_of_philo + 1) * sizeof(t_philo *));
 	i = 0;
 	while (i < philos->num_of_philo)
 	{
