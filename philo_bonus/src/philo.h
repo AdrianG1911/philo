@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:46:13 by adrgutie          #+#    #+#             */
-/*   Updated: 2025/03/23 16:10:04 by adrgutie         ###   ########.fr       */
+/*   Updated: 2025/03/23 16:44:18 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <limits.h>
 # include <semaphore.h>
 # include <semaphore.h>
+# include <signal.h>
 
 # define DIE 0
 # define TAKE_FORK 1
@@ -49,7 +50,6 @@ typedef struct s_philos
 	sem_t			*death;
 	sem_t			**done_eating_sems;
 	pid_t			*pids;
-	t_pthrea
 }	t_philos;
 
 //init

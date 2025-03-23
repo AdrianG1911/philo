@@ -6,11 +6,13 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:58:38 by adrgutie          #+#    #+#             */
-/*   Updated: 2025/03/23 15:47:45 by adrgutie         ###   ########.fr       */
+/*   Updated: 2025/03/23 16:20:40 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+sem_t		*allocate_sem_t()
 
 t_philos	*init_philos(int argc, char *argv[])
 {
