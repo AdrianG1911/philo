@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:46:13 by adrgutie          #+#    #+#             */
-/*   Updated: 2025/03/26 18:41:49 by adrgutie         ###   ########.fr       */
+/*   Updated: 2025/03/26 20:48:30 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ int				neg_check(int argc, char *argv[]);
 void			kill_all_exit(t_philos *philos);
 //message
 void			put_message(t_philos *philos, int action);
-//philo_work
-void			*philo_work(void *arg);
+//monitor_philo
+void			*check_dead_done(void *arg);
 //philo_work_utils
 int				death_or_done(t_philos *philos);
 int				give_token_loop(t_philo *philo, t_philos *philos);

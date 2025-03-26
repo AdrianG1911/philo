@@ -6,11 +6,21 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 21:14:15 by adrgutie          #+#    #+#             */
-/*   Updated: 2025/03/26 18:41:57 by adrgutie         ###   ########.fr       */
+/*   Updated: 2025/03/26 20:50:29 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	child_philo(t_philos *philos)
+{
+	pthread_create(&(philos->ptids[philos->name - 1]), \
+	NULL, check_dead_done, (void *)philos);
+	while (1)
+	{
+		
+	}
+}
 
 void	philo_loop(t_philos *philos)
 {
