@@ -6,22 +6,33 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:58:38 by adrgutie          #+#    #+#             */
-/*   Updated: 2025/03/23 16:20:40 by adrgutie         ###   ########.fr       */
+/*   Updated: 2025/03/26 18:33:40 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-sem_t		*allocate_sem_t()
-
-t_philos	*init_philos(int argc, char *argv[])
+void	setup_pids_ptids(t_philos *philos)
 {
-	t_philos	*philos;
+	int	i;
 
-	philos = (t_philos *)malloc(sizeof(t_philos));
-	if (philos == NULL)
+	philos->pids = ft_calloc(philos->num_of_philo, sizeof(pid_t));
+	philos->ptids = ft_calloc(philos->num_of_philo, sizeof(pthread_t));
+	if (philos->pids == NULL || philos->ptids == NULL)
 		exit(1);
-	memset(philos, 0, sizeof(t_philos));
+	i = 0;
+	while (i < philos->num_of_philo)
+	{
+		philos->pids[i] = -1;
+		philos->ptids[i] = -1;
+		i++;
+	}
+	philos->death_check_id = -1;
+	philos->done_check_id = -1;
+}
+
+void	input_argv(t_philos *philos, int argc, char *argv[])
+{
 	philos->num_of_philo = ft_atol_special(argv[1]);
 	philos->time_to_die = ft_atol_special(argv[2]);
 	philos->time_to_eat = ft_atol_special(argv[3]);
@@ -29,15 +40,68 @@ t_philos	*init_philos(int argc, char *argv[])
 	philos->num_of_times_must_eat = LONG_MAX;
 	if (argc == 6)
 		philos->num_of_times_must_eat = ft_atol_special(argv[5]);
-	if (init_philo_arr(philos) == -1)
-		return (free_philos(philos), NULL);
-	if (init_assign_forks(philos) == -1)
-		return (free_philos(philos), NULL);
-	if (init_pthread_ids(philos) == -1)
-		return (free_philos(philos), NULL);
-	if (pthread_mutex_init(&(philos->death_lock), NULL) != 0)
-		return (free_philos(philos), NULL);
-	if (pthread_mutex_init(&(philos->message_lock), NULL) != 0)
-		return (free_philos(philos), NULL);
+}
+
+void	open_sems(t_philos *philos)
+{
+	int	i;
+
+	i = 0;
+	while (i < philos->num_of_philo)
+	{
+		philos->done_eating_sems[i] = \
+		sem_open(philos->d_e_s_sem_names[i], O_CREAT, 0);
+		philos->allowed_to_eat[i] = \
+		sem_open(philos->a_t_e_sem_names[i], O_CREAT, 0);
+		if (philos->done_eating_sems[i] == SEM_FAILED || \
+			philos->allowed_to_eat[i] == SEM_FAILED)
+			kill_all_exit(philos);
+		i++;
+	}
+	philos->forks = sem_open("/forks", O_CREAT, philos->num_of_philo);
+	philos->death = sem_open("/death", O_CREAT, 1);
+	philos->message = sem_open("/message", O_CREAT, 1);
+	philos->death_check = sem_open("/death_check", O_CREAT, 0);
+	if (philos->forks == SEM_FAILED || philos->death == SEM_FAILED || \
+		philos->forks == SEM_FAILED || philos->forks == SEM_FAILED)
+		kill_all_exit(philos);
+}
+
+void	make_sem_names(t_philos *philos)
+{
+	int	i;
+
+	i = 0;
+	while (i < philos->num_of_philo)
+	{
+		philos->a_t_e_sem_names[i] = get_sem_name("/allowed_to_eat", i);
+		philos->d_e_s_sem_names[i] = get_sem_name("/done_eating_sems", i);
+		i++;
+	}
+}
+
+t_philos	*init_philos(int argc, char *argv[])
+{
+	t_philos	*philos;
+
+	philos = (t_philos *)ft_calloc(sizeof(t_philos));
+	if (philos == NULL)
+		exit(1);
+	memset(philos, 0, sizeof(t_philos));
+	input_argv(philos, argc, argv);
+	setup_pids_ptids(philos);
+	philos->allowed_to_eat = (sem_t **)ft_calloc(philos->num_of_philo, \
+	sizeof(sem_t *));
+	philos->done_eating_sems = (sem_t **)ft_calloc(philos->num_of_philo, \
+	sizeof(sem_t *));
+	philos->a_t_e_sem_names = (char **)ft_calloc(philos->num_of_philo, \
+	sizeof(char *));
+	philos->d_e_s_sem_names = (char **)ft_calloc(philos->num_of_philo, \
+	sizeof(char *));
+	if (philos->allowed_to_eat == NULL || philos->done_eating_sems == NULL \
+		|| philos->d_e_s_sem_names == NULL || philos->a_t_e_sem_names == NULL)
+		exit(1);
+	make_sem_names(philos);
+	open_sems(philos);
 	return (philos);
 }

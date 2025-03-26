@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 23:11:02 by adrgutie          #+#    #+#             */
-/*   Updated: 2025/03/23 15:51:20 by adrgutie         ###   ########.fr       */
+/*   Updated: 2025/03/26 17:05:23 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	put_message(t_philos *philos, int action)
 	if (action == DIE)
 	{
 		sem_wait(philos->death);
+		sem_post(philos->death_check);
 		printf("%ld %d died\n", curtime, philos->name);
 		exit(DIE);
 	}
