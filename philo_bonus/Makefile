@@ -6,25 +6,25 @@
 #    By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/17 01:22:37 by adrgutie          #+#    #+#              #
-#    Updated: 2024/11/20 15:55:59 by adrgutie         ###   ########.fr        #
+#    Updated: 2025/04/05 22:18:08 by adrgutie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= philo
+NAME		= philo_bonus
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -g
 LDLIBS		= -lpthread
 RM			= rm -fr
 OBJ_DIR		= obj
 
-SRCS		= src/philo.c \
-			  src/philos_init.c \
-			  src/philo_utils.c \
-			  src/init_thread_datas.c \
-			  src/free.c \
+SRCS		= src/philo_bonus.c \
+			  src/kill_exit.c \
+			  src/monitor_philo.c \
+			  src/philo_bonus_utils.c \
 			  src/philo_message.c \
-			  src/philo_work.c \
-			  src/philo_work_utils.c
+			  src/philo_utils.c \
+			  src/philos_init_name.c \
+			  src/philos_init.c
 
 OBJS		= $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 

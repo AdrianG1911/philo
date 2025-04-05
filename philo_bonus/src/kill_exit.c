@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 16:31:05 by adrgutie          #+#    #+#             */
-/*   Updated: 2025/03/26 17:04:56 by adrgutie         ###   ########.fr       */
+/*   Updated: 2025/04/05 22:25:10 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	kill_all_exit(t_philos *philos)
 	int	i;
 
 	i = 0;
-	while(i < philos->num_of_philo)
+	while (i < philos->num_of_philo)
 	{
 		if (philos->pids[i] >= 0)
 		{

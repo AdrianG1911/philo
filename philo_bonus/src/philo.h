@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:46:13 by adrgutie          #+#    #+#             */
-/*   Updated: 2025/04/05 19:21:28 by adrgutie         ###   ########.fr       */
+/*   Updated: 2025/04/05 22:25:06 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <limits.h>
 # include <stddef.h>
 # include <stdint.h>
+# include <sys/wait.h>
 
 # define DIE 0
 # define TAKE_FORK 1
@@ -61,7 +62,7 @@ typedef struct s_philos
 //init
 t_philos		*init_philos(int argc, char *argv[]);
 //init_name
-char			*get_sem_name(const char *sem_name, int num);
+char			*get_sem_name(char *sem_name, int num);
 //utils
 long			get_time_mili(void);
 long			ft_atol_special(char *str);
@@ -73,10 +74,8 @@ void			put_message(t_philos *philos, int action);
 //monitor_philo
 void			*check_dead_done(void *arg);
 void			main_waiter(t_philos *philos);
-void			waiting_for_death(void *arg);
-void			waiting_for_dones(void *arg);
-//philo_work_utils
-int				death_or_done(t_philos *philos);
+void			*waiting_for_death(void *arg);
+void			*waiting_for_dones(void *arg);
 //philo_bonus_utils
 void			*ft_calloc(size_t nmemb, size_t size);
 void			*ft_memcpy(void *dst, const void *src, size_t n);

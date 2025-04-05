@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:58:38 by adrgutie          #+#    #+#             */
-/*   Updated: 2025/04/05 17:46:12 by adrgutie         ###   ########.fr       */
+/*   Updated: 2025/04/05 22:25:03 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,19 @@ void	open_sems(t_philos *philos)
 	while (i < philos->num_of_philo)
 	{
 		philos->done_eating_sems[i] = \
-		sem_open(philos->d_e_s_sem_names[i], O_CREAT, 0);
+		sem_open(philos->d_e_s_sem_names[i], O_CREAT | O_EXCL, 0666, 0);
 		philos->allowed_to_eat[i] = \
-		sem_open(philos->a_t_e_sem_names[i], O_CREAT, 0);
+		sem_open(philos->a_t_e_sem_names[i], O_CREAT | O_EXCL, 0666, 0);
 		if (philos->done_eating_sems[i] == SEM_FAILED || \
 			philos->allowed_to_eat[i] == SEM_FAILED)
 			kill_all_exit(philos);
 		i++;
 	}
-	philos->forks = sem_open("/forks", O_CREAT, philos->num_of_philo);
-	philos->death = sem_open("/death", O_CREAT, 1);
-	philos->message = sem_open("/message", O_CREAT, 1);
-	philos->death_check = sem_open("/death_check", O_CREAT, 0);
+	philos->forks = \
+	sem_open("/forks", O_CREAT | O_EXCL, 0666, philos->num_of_philo);
+	philos->death = sem_open("/death", O_CREAT | O_EXCL, 0666, 1);
+	philos->message = sem_open("/message", O_CREAT | O_EXCL, 0666, 1);
+	philos->death_check = sem_open("/death_check", O_CREAT | O_EXCL, 0666, 0);
 	if (philos->forks == SEM_FAILED || philos->death == SEM_FAILED || \
 		philos->forks == SEM_FAILED || philos->forks == SEM_FAILED)
 		kill_all_exit(philos);

@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 21:14:15 by adrgutie          #+#    #+#             */
-/*   Updated: 2025/04/05 19:25:56 by adrgutie         ###   ########.fr       */
+/*   Updated: 2025/04/05 23:02:13 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	philo_loop(t_philos *philos)
 {
 	int	name;
 
+	philos->start_time = get_time_mili();
 	name = 1;
 	while (name <= philos->num_of_philo)
 	{
@@ -56,9 +57,9 @@ void	philo_loop(t_philos *philos)
 			child_philo(philos);
 		name++;
 	}
-	pthread_creat(philos->death_check_id, \
+	pthread_create(&(philos->death_check_id), \
 	NULL, waiting_for_death, (void *)philos);
-	pthread_creat(philos->done_check_id, \
+	pthread_create(&(philos->done_check_id), \
 	NULL, waiting_for_dones, (void *)philos);
 	main_waiter(philos);
 }

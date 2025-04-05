@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 20:23:19 by adrgutie          #+#    #+#             */
-/*   Updated: 2025/04/05 19:20:38 by adrgutie         ###   ########.fr       */
+/*   Updated: 2025/04/05 22:52:40 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	*check_dead_done(void *arg)
 		curtime = get_time_mili() - philos->start_time;
 		if (curtime - philos->eating_time >= philos->time_to_die)
 		{
-			sem_post(philos->death);
 			put_message(philos, DIE);
 			pthread_detach(philos->ptids[philos->name - 1]);
 		}
@@ -35,9 +34,10 @@ void	*check_dead_done(void *arg)
 		}
 		usleep(100);
 	}
+	return (NULL);
 }
 
-void	waiting_for_dones(void *arg)
+void	*waiting_for_dones(void *arg)
 {
 	t_philos	*philos;
 	int			i;
@@ -50,15 +50,17 @@ void	waiting_for_dones(void *arg)
 		i++;
 	}
 	kill_all_exit(philos);
+	return (NULL);
 }
 
-void	waiting_for_death(void *arg)
+void	*waiting_for_death(void *arg)
 {
 	t_philos	*philos;
 
 	philos = (t_philos *)arg;
-	sem_wait(philos->death);
+	sem_wait(philos->death_check);
 	kill_all_exit(philos);
+	return (NULL);
 }
 
 int	wrap(int num, t_philos *philos)
@@ -85,6 +87,7 @@ void	main_waiter(t_philos *philos)
 		i = -1;
 		while (++i < allowed_num)
 			sem_post(philos->allowed_to_eat[wrap(allowed_start + i, philos)]);
+		usleep(900 * philos->time_to_eat);
 		i = -1;
 		while (++i < allowed_num)
 			sem_wait(philos->allowed_to_eat[wrap(allowed_start + i, philos)]);
