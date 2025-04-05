@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:58:38 by adrgutie          #+#    #+#             */
-/*   Updated: 2025/03/26 20:42:56 by adrgutie         ###   ########.fr       */
+/*   Updated: 2025/04/05 17:46:12 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_philos	*init_philos(int argc, char *argv[])
 {
 	t_philos	*philos;
 
-	philos = (t_philos *)ft_calloc(sizeof(t_philos));
+	philos = (t_philos *)ft_calloc(1, sizeof(t_philos));
 	if (philos == NULL)
 		exit(1);
 	memset(philos, 0, sizeof(t_philos));

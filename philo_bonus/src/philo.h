@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:46:13 by adrgutie          #+#    #+#             */
-/*   Updated: 2025/03/26 20:48:30 by adrgutie         ###   ########.fr       */
+/*   Updated: 2025/04/05 19:21:28 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_philos
 	long			start_time;
 	long			eating_time;
 	int				times_eaten;
+	int				done_eating_flag;
 	long			num_of_philo;
 	long			time_to_die;
 	long			time_to_eat;
@@ -71,12 +72,11 @@ void			kill_all_exit(t_philos *philos);
 void			put_message(t_philos *philos, int action);
 //monitor_philo
 void			*check_dead_done(void *arg);
+void			main_waiter(t_philos *philos);
+void			waiting_for_death(void *arg);
+void			waiting_for_dones(void *arg);
 //philo_work_utils
 int				death_or_done(t_philos *philos);
-int				give_token_loop(t_philo *philo, t_philos *philos);
-void			death_update(t_philo *philo, t_philos *philos);
-void			unlock_forks(t_philo *philo);
-void			death_unlock(t_philo *philo, t_philos *philos);
 //philo_bonus_utils
 void			*ft_calloc(size_t nmemb, size_t size);
 void			*ft_memcpy(void *dst, const void *src, size_t n);

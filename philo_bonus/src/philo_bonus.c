@@ -6,11 +6,30 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 21:14:15 by adrgutie          #+#    #+#             */
-/*   Updated: 2025/03/26 20:50:29 by adrgutie         ###   ########.fr       */
+/*   Updated: 2025/04/05 19:25:56 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	philo_do_stuff(t_philos *philos)
+{
+	put_message(philos, THINK);
+	sem_wait(philos->allowed_to_eat[philos->name - 1]);
+	sem_wait(philos->forks);
+	put_message(philos, TAKE_FORK);
+	sem_wait(philos->forks);
+	put_message(philos, TAKE_FORK);
+	put_message(philos, EAT);
+	philos->eating_time = get_time_mili() - philos->start_time;
+	usleep(philos->time_to_eat * 1000);
+	philos->times_eaten++;
+	sem_post(philos->forks);
+	sem_post(philos->forks);
+	sem_post(philos->allowed_to_eat[philos->name - 1]);
+	put_message(philos, SLEEP);
+	usleep(philos->time_to_sleep * 1000);
+}
 
 void	child_philo(t_philos *philos)
 {
@@ -18,7 +37,7 @@ void	child_philo(t_philos *philos)
 	NULL, check_dead_done, (void *)philos);
 	while (1)
 	{
-		
+		philo_do_stuff(philos);
 	}
 }
 
@@ -34,9 +53,14 @@ void	philo_loop(t_philos *philos)
 		if (philos->pids[name - 1] == -1)
 			kill_all_exit(philos);
 		if (philos->pids[name - 1] == 0)
-			//doo thing;
+			child_philo(philos);
+		name++;
 	}
-	
+	pthread_creat(philos->death_check_id, \
+	NULL, waiting_for_death, (void *)philos);
+	pthread_creat(philos->done_check_id, \
+	NULL, waiting_for_dones, (void *)philos);
+	main_waiter(philos);
 }
 
 void	philo(int argc, char *argv[])
