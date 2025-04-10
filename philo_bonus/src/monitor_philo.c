@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 20:23:19 by adrgutie          #+#    #+#             */
-/*   Updated: 2025/04/10 13:48:36 by adrgutie         ###   ########.fr       */
+/*   Updated: 2025/04/10 16:29:17 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	*waiting_for_death(void *arg)
 	philos = (t_philos *)arg;
 	sem_wait(philos->death_check);
 	philos->dead_flag = 1;
+	post_loop(philos);
 	pthread_detach(philos->death_check_id);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:46:13 by adrgutie          #+#    #+#             */
-/*   Updated: 2025/04/10 12:54:21 by adrgutie         ###   ########.fr       */
+/*   Updated: 2025/04/10 16:11:15 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int				neg_check(int argc, char *argv[]);
 //free
 void			kill_all_exit(t_philos *philos);
 void			free_stuff(t_philos *philos);
+void			post_loop(t_philos *philos);
 //message
 void			put_message(t_philos *philos, int action);
 //monitor_philo

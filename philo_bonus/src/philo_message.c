@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 23:11:02 by adrgutie          #+#    #+#             */
-/*   Updated: 2025/04/10 13:53:46 by adrgutie         ###   ########.fr       */
+/*   Updated: 2025/04/10 15:49:08 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	put_message(t_philos *philos, int action)
 		sem_post(philos->death_check);
 		if (philos->num_of_philo > 1)
 			exit(DIE);
+		return ;
 	}
 	if (action == TAKE_FORK)
 		printf("%ld %d has taken a fork\n", curtime, philos->name);

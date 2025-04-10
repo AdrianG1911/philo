@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 16:31:05 by adrgutie          #+#    #+#             */
-/*   Updated: 2025/04/10 13:55:57 by adrgutie         ###   ########.fr       */
+/*   Updated: 2025/04/10 16:18:30 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	post_stuff(t_philos *philos)
 	}
 	if (philos->death_check != SEM_FAILED)
 		sem_post(philos->death_check);
-	usleep(10000);
+	usleep(100);
 }
 
 void	close_stuff(t_philos *philos, int i)

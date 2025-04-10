@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 17:32:05 by adrgutie          #+#    #+#             */
-/*   Updated: 2025/04/05 22:25:08 by adrgutie         ###   ########.fr       */
+/*   Updated: 2025/04/10 16:12:34 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,19 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	if (p)
 		ft_memset(p, 0, nmemb * size);
 	return (p);
+}
+
+void	post_loop(t_philos *philos)
+{
+	int	i;
+	int	philnum;
+
+	i = 0;
+	philnum = philos->num_of_philo;
+	while (i < philnum)
+	{
+		sem_post(philos->allowed_to_eat[i]);
+		sem_post(philos->picked_up_forks[i]);
+		i++;
+	}
 }

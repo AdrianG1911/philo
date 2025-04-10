@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 21:14:15 by adrgutie          #+#    #+#             */
-/*   Updated: 2025/04/10 13:54:30 by adrgutie         ###   ########.fr       */
+/*   Updated: 2025/04/10 16:29:18 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	philo_loop(t_philos *philos)
 	pthread_create(&(philos->done_check_id), \
 	NULL, waiting_for_dones, (void *)philos);
 	main_waiter(philos);
-	printf("please work!!!\n");
 	kill_all_exit(philos);
 }
 
