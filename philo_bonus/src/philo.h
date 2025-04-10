@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:46:13 by adrgutie          #+#    #+#             */
-/*   Updated: 2025/04/05 22:25:06 by adrgutie         ###   ########.fr       */
+/*   Updated: 2025/04/10 12:54:21 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_philos
 	long			eating_time;
 	int				times_eaten;
 	int				done_eating_flag;
+	int				dead_flag;
 	long			num_of_philo;
 	long			time_to_die;
 	long			time_to_eat;
@@ -47,6 +48,8 @@ typedef struct s_philos
 	long			num_of_times_must_eat;
 	char			**a_t_e_sem_names;
 	sem_t			**allowed_to_eat;
+	char			**p_u_f_sem_names;
+	sem_t			**picked_up_forks;
 	sem_t			*forks;
 	sem_t			*message;
 	sem_t			*death;
@@ -69,6 +72,7 @@ long			ft_atol_special(char *str);
 int				neg_check(int argc, char *argv[]);
 //free
 void			kill_all_exit(t_philos *philos);
+void			free_stuff(t_philos *philos);
 //message
 void			put_message(t_philos *philos, int action);
 //monitor_philo

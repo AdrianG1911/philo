@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:58:38 by adrgutie          #+#    #+#             */
-/*   Updated: 2025/04/05 22:25:03 by adrgutie         ###   ########.fr       */
+/*   Updated: 2025/04/10 12:37:09 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,11 @@ void	open_sems(t_philos *philos)
 		sem_open(philos->d_e_s_sem_names[i], O_CREAT | O_EXCL, 0666, 0);
 		philos->allowed_to_eat[i] = \
 		sem_open(philos->a_t_e_sem_names[i], O_CREAT | O_EXCL, 0666, 0);
+		philos->picked_up_forks[i] = \
+		sem_open(philos->p_u_f_sem_names[i], O_CREAT | O_EXCL, 0666, 0);
 		if (philos->done_eating_sems[i] == SEM_FAILED || \
-			philos->allowed_to_eat[i] == SEM_FAILED)
+			philos->allowed_to_eat[i] == SEM_FAILED || \
+			philos->picked_up_forks[i] == SEM_FAILED)
 			kill_all_exit(philos);
 		i++;
 	}
@@ -72,11 +75,21 @@ void	make_sem_names(t_philos *philos)
 {
 	int	i;
 
+	philos->a_t_e_sem_names = (char **)ft_calloc(philos->num_of_philo, \
+	sizeof(char *));
+	philos->d_e_s_sem_names = (char **)ft_calloc(philos->num_of_philo, \
+	sizeof(char *));
+	philos->p_u_f_sem_names = (char **)ft_calloc(philos->num_of_philo, \
+	sizeof(char *));
+	if (philos->d_e_s_sem_names == NULL || philos->a_t_e_sem_names == NULL \
+		|| philos->p_u_f_sem_names == NULL)
+		exit (1);
 	i = 0;
 	while (i < philos->num_of_philo)
 	{
 		philos->a_t_e_sem_names[i] = get_sem_name("/allowed_to_eat", i);
 		philos->d_e_s_sem_names[i] = get_sem_name("/done_eating_sems", i);
+		philos->p_u_f_sem_names[i] = get_sem_name("/picked_up_forks", i);
 		i++;
 	}
 }
@@ -95,12 +108,10 @@ t_philos	*init_philos(int argc, char *argv[])
 	sizeof(sem_t *));
 	philos->done_eating_sems = (sem_t **)ft_calloc(philos->num_of_philo, \
 	sizeof(sem_t *));
-	philos->a_t_e_sem_names = (char **)ft_calloc(philos->num_of_philo, \
-	sizeof(char *));
-	philos->d_e_s_sem_names = (char **)ft_calloc(philos->num_of_philo, \
-	sizeof(char *));
+	philos->picked_up_forks = (sem_t **)ft_calloc(philos->num_of_philo, \
+	sizeof(sem_t *));
 	if (philos->allowed_to_eat == NULL || philos->done_eating_sems == NULL \
-		|| philos->d_e_s_sem_names == NULL || philos->a_t_e_sem_names == NULL)
+		|| philos->picked_up_forks == NULL)
 		exit(1);
 	make_sem_names(philos);
 	open_sems(philos);

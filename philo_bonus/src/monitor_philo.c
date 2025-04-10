@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 20:23:19 by adrgutie          #+#    #+#             */
-/*   Updated: 2025/04/05 22:52:40 by adrgutie         ###   ########.fr       */
+/*   Updated: 2025/04/10 13:48:36 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	*waiting_for_dones(void *arg)
 		sem_wait(philos->done_eating_sems[i]);
 		i++;
 	}
-	kill_all_exit(philos);
+	philos->done_eating_flag = 1;
+	pthread_detach(philos->done_check_id);
 	return (NULL);
 }
 
@@ -59,7 +60,8 @@ void	*waiting_for_death(void *arg)
 
 	philos = (t_philos *)arg;
 	sem_wait(philos->death_check);
-	kill_all_exit(philos);
+	philos->dead_flag = 1;
+	pthread_detach(philos->death_check_id);
 	return (NULL);
 }
 
@@ -83,14 +85,21 @@ void	main_waiter(t_philos *philos)
 	allowed_num = philos->num_of_philo / 2;
 	while (1)
 	{
+		if (philos->done_eating_flag || philos->dead_flag)
+			break ;
 		allowed_start = wrap(allowed_start, philos);
 		i = -1;
 		while (++i < allowed_num)
+		{
 			sem_post(philos->allowed_to_eat[wrap(allowed_start + i, philos)]);
-		usleep(900 * philos->time_to_eat);
+			sem_wait(philos->picked_up_forks[wrap(allowed_start + i, philos)]);
+		}
 		i = -1;
 		while (++i < allowed_num)
+		{
+			sem_post(philos->picked_up_forks[wrap(allowed_start + i, philos)]);
 			sem_wait(philos->allowed_to_eat[wrap(allowed_start + i, philos)]);
+		}
 		allowed_start += i;
 	}
 }
